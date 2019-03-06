@@ -94,12 +94,14 @@ final class QQHelper implements ISocial, INeedLoginResult {
             return;
         }
         initLoginListener();
-        if (!tencent.isSessionValid()) {
-            tencent.login(activity, "all", loginListener);
-        } else {
-            UserInfo info = new UserInfo(activity, tencent.getQQToken());
-            info.getUserInfo(userInfoListener);
-        }
+        tencent.login(activity, "all", loginListener);
+//        if (!tencent.isSessionValid()) {
+//            tencent.login(activity, "all", loginListener);
+//        } else {
+//            //userInfoListener ==null 导致 null point
+//            UserInfo info = new UserInfo(activity, tencent.getQQToken());
+//            info.getUserInfo(userInfoListener);
+//        }
     }
 
     /**
