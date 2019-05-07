@@ -53,6 +53,14 @@ public final class QQShareEntity extends ShareEntity {
         return entity;
     }
 
+    public static ShareEntity createNetImageInfo(@ParamsRequired String imgUrl, String appName) {
+        ShareEntity entity = new ShareEntity(ShareEntity.TYPE_QQ);
+        addParams(entity.params, QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_IMAGE);
+        addParams(entity.params, QQShare.SHARE_TO_QQ_IMAGE_URL, imgUrl);
+        addParams(entity.params, QQShare.SHARE_TO_QQ_APP_NAME, appName);
+        return entity;
+    }
+
     /**
      * 创建分享音乐到qq
      *
