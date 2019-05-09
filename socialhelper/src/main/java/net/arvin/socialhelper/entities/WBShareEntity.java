@@ -1,5 +1,6 @@
 package net.arvin.socialhelper.entities;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import net.arvin.socialhelper.ParamsRequired;
@@ -28,6 +29,7 @@ public class WBShareEntity extends ShareEntity {
     public static final String KEY_WB_TEXT = "key_wb_text";
     public static final String KEY_WB_IMG_LOCAL = "key_wb_local_img";
     public static final String KEY_WB_IMG_RES = "key_wb_img_res";
+    public static final String KEY_WB_IMG_BITMAP = "key_wb_img_bitmap";
     public static final String KEY_WB_MULTI_IMG = "key_wb_multi_img";
     public static final String KEY_WB_VIDEO_URL = "key_wb_video_url";
     public static final String KEY_WB_WEB_URL = "key_wb_web_url";
@@ -67,6 +69,14 @@ public class WBShareEntity extends ShareEntity {
      * @param text 文本内容
      */
     public static ShareEntity createImageTextInfo(@ParamsRequired int img, String text) {
+        ShareEntity entity = new ShareEntity(TYPE_WB);
+        addParams(entity.params, KEY_WB_TYPE, TYPE_IMG_TEXT);
+        addParams(entity.params, KEY_WB_TEXT, text);
+        addTitleSummaryAndThumb(entity.params, "", "", img);
+        return entity;
+    }
+
+    public static ShareEntity createImageTextInfo(@ParamsRequired Bitmap img, String text) {
         ShareEntity entity = new ShareEntity(TYPE_WB);
         addParams(entity.params, KEY_WB_TYPE, TYPE_IMG_TEXT);
         addParams(entity.params, KEY_WB_TEXT, text);
@@ -160,5 +170,11 @@ public class WBShareEntity extends ShareEntity {
         addParams(params, KEY_WB_TITLE, title);
         addParams(params, KEY_WB_SUMMARY, summary);
         addParams(params, KEY_WB_IMG_RES, imgRes);
+    }
+
+    private static void addTitleSummaryAndThumb(Bundle params, String title, String summary, Bitmap imgRes) {
+        addParams(params, KEY_WB_TITLE, title);
+        addParams(params, KEY_WB_SUMMARY, summary);
+        addParams(params, KEY_WB_IMG_BITMAP, imgRes);
     }
 }

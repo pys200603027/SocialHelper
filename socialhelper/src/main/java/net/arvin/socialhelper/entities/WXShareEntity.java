@@ -1,5 +1,6 @@
 package net.arvin.socialhelper.entities;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import net.arvin.socialhelper.ParamsRequired;
@@ -28,6 +29,7 @@ public final class WXShareEntity extends ShareEntity {
     public static final String KEY_WX_MUSIC_URL = "key_wx_music_url";
     public static final String KEY_WX_VIDEO_URL = "key_wx_video_url";
     public static final String KEY_WX_WEB_URL = "key_wx_web_url";
+    public static final String KEY_WX_IMG_BITMAP = "key_wx_img_bitmap";
 
     private WXShareEntity(int type) {
         super(type);
@@ -56,6 +58,13 @@ public final class WXShareEntity extends ShareEntity {
         ShareEntity entity = new ShareEntity(isTimeLine ? TYPE_PYQ : TYPE_WX);
         addParams(entity.params, KEY_WX_TYPE, TYPE_IMG);
         addParams(entity.params, KEY_WX_IMG_LOCAL, imgUrl);
+        return entity;
+    }
+
+    public static ShareEntity createWebImageInfo(@ParamsRequired boolean isTimeLine, @ParamsRequired Bitmap bitmap) {
+        ShareEntity entity = new ShareEntity(isTimeLine ? TYPE_PYQ : TYPE_WX);
+        addParams(entity.params, KEY_WX_TYPE, TYPE_IMG);
+        addParams(entity.params, KEY_WX_IMG_BITMAP, bitmap);
         return entity;
     }
 
@@ -174,6 +183,14 @@ public final class WXShareEntity extends ShareEntity {
         return entity;
     }
 
+    public static ShareEntity createWebPageInfo(@ParamsRequired boolean isTimeLine, @ParamsRequired String webUrl, Bitmap imgRes, String title, String summary) {
+        ShareEntity entity = new ShareEntity(isTimeLine ? TYPE_PYQ : TYPE_WX);
+        addParams(entity.params, KEY_WX_TYPE, TYPE_WEB);
+        addParams(entity.params, KEY_WX_WEB_URL, webUrl);
+        addTitleSummaryAndThumb(entity.params, title, summary, imgRes);
+        return entity;
+    }
+
     /**
      * @param title   标题
      * @param summary 摘要
@@ -183,6 +200,12 @@ public final class WXShareEntity extends ShareEntity {
         addParams(params, KEY_WX_TITLE, title);
         addParams(params, KEY_WX_SUMMARY, summary);
         addParams(params, KEY_WX_IMG_LOCAL, imgUrl);
+    }
+
+    private static void addTitleSummaryAndThumb(Bundle params, String title, String summary, Bitmap imgUrl) {
+        addParams(params, KEY_WX_TITLE, title);
+        addParams(params, KEY_WX_SUMMARY, summary);
+        addParams(params, KEY_WX_IMG_BITMAP, imgUrl);
     }
 
     /**

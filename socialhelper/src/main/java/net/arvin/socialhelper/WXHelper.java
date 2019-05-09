@@ -281,6 +281,10 @@ final class WXHelper implements ISocial, INeedLoginResult {
             imgObj = new WXImageObject();
             imgObj.imagePath = imgUrl;
             bitmap = BitmapFactory.decodeFile(imgUrl);
+        } else if (params.containsKey(WXShareEntity.KEY_WX_IMG_BITMAP)) {
+            Bitmap wbBit = params.getParcelable(WXShareEntity.KEY_WX_IMG_BITMAP);
+            bitmap = wbBit;
+            imgObj = new WXImageObject(bitmap);
         } else {
             bitmap = BitmapFactory.decodeResource(activity.getResources(), params.getInt(WXShareEntity.KEY_WX_IMG_RES));
             imgObj = new WXImageObject(bitmap);

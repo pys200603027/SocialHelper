@@ -361,7 +361,7 @@ final class WBHelper implements ISocial, INeedLoginResult {
             msg.description = params.getString(WBShareEntity.KEY_WB_SUMMARY);
         }
 
-        if (params.containsKey(WBShareEntity.KEY_WB_IMG_LOCAL) || params.containsKey(WBShareEntity.KEY_WB_IMG_RES)) {
+        if (params.containsKey(WBShareEntity.KEY_WB_IMG_LOCAL) || params.containsKey(WBShareEntity.KEY_WB_IMG_RES) || params.containsKey(WBShareEntity.KEY_WB_IMG_BITMAP)) {
             Bitmap bitmap;
             if (params.containsKey(WBShareEntity.KEY_WB_IMG_LOCAL)) {//分为本地文件和应用内资源图片
                 String imgUrl = params.getString(WBShareEntity.KEY_WB_IMG_LOCAL);
@@ -369,6 +369,8 @@ final class WBHelper implements ISocial, INeedLoginResult {
                     return true;
                 }
                 bitmap = BitmapFactory.decodeFile(imgUrl);
+            } else if (params.containsKey(WBShareEntity.KEY_WB_IMG_BITMAP)) {
+                bitmap = params.getParcelable(WBShareEntity.KEY_WB_IMG_BITMAP);
             } else {
                 bitmap = BitmapFactory.decodeResource(activity.getResources(), params.getInt(WBShareEntity.KEY_WB_IMG_RES));
             }
